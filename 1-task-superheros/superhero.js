@@ -56,19 +56,19 @@ document.addEventListener('DOMContentLoaded', function (ev) {
             <div class="rating-items">
 
             <input type="radio" id="rating5-${i}" class="rating-item" name="rating" onclick="getRating(this)" value="5"/>
-            <label for="rating5-${i}" class="rating-label" title="Оценка «5»"></label>
+            <label for="rating5-${i}" class="rating-label"></label>
             
             <input type="radio" id="rating4-${i}" class="rating-item" name="rating" onclick="getRating(this)" value="4"/>
-            <label for="rating4-${i}" class="rating-label" title="Оценка «4»"></label> 
+            <label for="rating4-${i}" class="rating-label"></label> 
             
             <input type="radio" id="rating3-${i}" class="rating-item" name="rating" onclick="getRating(this)" value="3"/>
-            <label for="rating3-${i}" class="rating-label" title="Оценка «3»"></label>
+            <label for="rating3-${i}" class="rating-label"></label>
             
             <input type="radio" id="rating2-${i}" class="rating-item" name="rating" onclick="getRating(this)" checked value="2"/>
-            <label for="rating2-${i}" class="rating-label" title="Оценка «2»"></label>
+            <label for="rating2-${i}" class="rating-label"></label>
             
             <input type="radio" id="rating1-${i}" class="rating-item" name="rating" onclick="getRating(this)" value="1"/>
-            <label for="rating1-${i}" class="rating-label" title="Оценка «1»"></label>
+            <label for="rating1-${i}" class="rating-label"></label>
             
             </div>
             </form>
@@ -94,6 +94,14 @@ function getRating(elem) {
 
     let nameHeros = parsedHeroes[numHero].character;
 
-     localStorage.setItem(nameHeros, ratingValue);
+    if(checkEmpty()){
+        localStorage.setItem(nameHeros, ratingValue);
+    }
+
+    return nameHeros, ratingValue;
+}
+
+function checkEmpty(nameHeros, ratingValue) {
+    return (nameHeros != "" && ratingValue != "") ? true : false;
 }
 
