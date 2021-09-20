@@ -35,11 +35,9 @@ let deadpool = new Superhero("Дэдпул", "Marvel Comics", "Уэйд Уинс
 superheroes.push(batman, superman, ironman, spiderman, captainamerica, thor, hulk, wonderwoman, blackwidow, deadpool);
 
 let serializedHeroes = JSON.stringify(superheroes);
-//console.log(serializedHeroes);
 
 document.addEventListener('DOMContentLoaded', function (ev) {
     let parsedHeroes = JSON.parse(serializedHeroes);
-    //console.log(parsedHeroes);
 
     let listHeroes = "";
 
@@ -52,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function (ev) {
             <div>Род деятельности: ${hero.career}</div>
             <div>Друзья: ${hero.friends}</div>` +
             ((hero.image == undefined) ? `` : `<img class="imgHero" src="${hero.image}"/>`) +
-            `<form action="#" class="rating-wrapper">
+            `<form action="#" id="formUser" class="rating-wrapper">
             <div class="rating-items">
 
             <input type="radio" id="rating5-${i}" class="rating-item" name="rating" onclick="getRating(this)" value="5"/>
@@ -89,15 +87,21 @@ function getRating(elem) {
     let ratingValue = elem.value;
 
     let parsedHeroes = JSON.parse(serializedHeroes);
-
     let numHero = elem.id.slice(-1);
-
     let nameHeros = parsedHeroes[numHero].character;
 
-    if(checkEmpty()){
-        localStorage.setItem(nameHeros, ratingValue);
+    let arrRat = [];
+    let getValue = localStorage.getItem(nameHeros);
+    if (getValue) {
+        arrRat.push(getValue);
+        arrRat.push(ratingValue);
+        localStorage.setItem(nameHeros, arrRat);
+    } else {
+        if (checkEmpty(nameHeros, ratingValue)) {
+            localStorage.setItem(nameHeros, ratingValue);
+        }
     }
-
+    listRating(nameHeros);
     return nameHeros, ratingValue;
 }
 
@@ -105,3 +109,7 @@ function checkEmpty(nameHeros, ratingValue) {
     return (nameHeros != "" && ratingValue != "") ? true : false;
 }
 
+let listRating = function(nameHeros){
+    let getRating = localStorage.getItem(nameHeros);
+    console.log(`${nameHeros}: ${getRating}`)
+};
