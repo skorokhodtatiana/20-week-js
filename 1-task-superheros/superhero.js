@@ -101,15 +101,10 @@ function getRating(elem) {
             localStorage.setItem(nameHeros, ratingValue);
         }
     }
-    listRating(nameHeros);
+    console.log(`${nameHeros}: ${arrRat.toString()}`)
     return nameHeros, ratingValue;
 }
 
 function checkEmpty(nameHeros, ratingValue) {
     return (nameHeros != "" && ratingValue != "") ? true : false;
 }
-
-let listRating = function(nameHeros){
-    let getRating = localStorage.getItem(nameHeros);
-    console.log(`${nameHeros}: ${getRating}`)
-};
